@@ -1,6 +1,13 @@
 # main.py
 
-from business_rules import calculate_license_cost, get_seat_discount, calculate_license_total, needs_contract_review, gets_trainer, total_licensed, largest_license, format_license_line
+from business_rules import (
+    calculate_license_total,
+    format_license_line,
+    gets_trainer,
+    largest_license,
+    needs_contract_review,
+    total_licensed,
+)
 
 orders = [
     {"company": "Pine Books", "seat_price": 40.00, "seats": 5, "education": False},
@@ -13,13 +20,15 @@ orders = [
     {"company": "Willow Law", "seat_price": 400.00, "seats": 9, "education": False},
 ]
 
-print(f'Cloudstep Software - Order Report')
+print("Cloudstep Software - Order Report")
 
 for order in orders:
-    total = calculate_license_total(order["seat_price"], order["seats"], order["education"])
+    total = calculate_license_total(
+        order["seat_price"], order["seats"], order["education"]
+    )
     contract_review_text = needs_contract_review(total)
     trainer = gets_trainer(order["seats"], total)
-    
+
     print(format_license_line(order["company"], total, contract_review_text, trainer))
 
 order_count = len(orders)
@@ -29,19 +38,23 @@ largest_company = largest_license(orders)
 
 contract_reviews_needed = 0
 for order in orders:
-    total = calculate_license_total(order["seat_price"], order["seats"], order["education"])
-    if needs_contract_review(total): 
+    total = calculate_license_total(
+        order["seat_price"], order["seats"], order["education"]
+    )
+    if needs_contract_review(total):
         contract_reviews_needed += 1
 
 trainers_assigned = 0
 for order in orders:
-    total = calculate_license_total(order["seat_price"], order["seats"], order["education"])
+    total = calculate_license_total(
+        order["seat_price"], order["seats"], order["education"]
+    )
     if gets_trainer(order["seats"], total):
         trainers_assigned += 1
 
-print(f'Orders: {order_count}')
-print(f'Total licensed: ${total_license_combined:.2f}')
-print(f'Average license total: ${avg_license_total:.2f}')
-print(f'Largest license total: {largest_company}')
-print(f'Contract reviews needed: {contract_reviews_needed}')
-print (f'Trainers assigned: {trainers_assigned}')
+print(f"Orders: {order_count}")
+print(f"Total licensed: ${total_license_combined:.2f}")
+print(f"Average license total: ${avg_license_total:.2f}")
+print(f"Largest license total: {largest_company}")
+print(f"Contract reviews needed: {contract_reviews_needed}")
+print(f"Trainers assigned: {trainers_assigned}")
